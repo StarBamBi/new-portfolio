@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronRight, ChevronLeft } from "lucide-react";
+import { X, ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import type { ProjectDetail } from "@/lib/projectData";
 
@@ -146,27 +146,9 @@ export default function ProjectModal({
                   {/* 상세 섹션들 */}
                   <section>
                     <SectionLabel>상세</SectionLabel>
-                    <div className="mt-3 space-y-6">
+                    <div className="mt-3 space-y-2">
                       {project.details.map((detail) => (
-                        <div
-                          key={detail.title}
-                          className="border border-white/10 rounded-xl overflow-hidden"
-                        >
-                          <div className="px-4 py-3 bg-white/5 border-b border-white/10">
-                            <h4 className="text-sm font-semibold text-white flex items-center gap-2">
-                              <ChevronRight size={14} className="text-indigo-400" />
-                              {detail.title}
-                            </h4>
-                          </div>
-                          <div className="px-4 py-4 space-y-4">
-                            <DetailBlock label="문제 상황" color="text-rose-400" items={detail.problem} />
-                            <DetailBlock label="개선 방식" color="text-cyan-400" items={detail.solution} />
-                            {detail.designIntent && (
-                              <DetailBlock label="설계 의도" color="text-purple-400" items={detail.designIntent} />
-                            )}
-                            <DetailBlock label="결과" color="text-emerald-400" items={detail.result} />
-                          </div>
-                        </div>
+                        <AccordionItem key={detail.title} detail={detail} />
                       ))}
                     </div>
                   </section>
@@ -276,6 +258,44 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
         {children}
       </span>
       <div className="flex-1 h-px bg-white/10" />
+    </div>
+  );
+}
+
+function AccordionItem({ detail }: { detail: { title: string; problem: string[]; solution: string[]; designIntent?: string[]; result: string[] } }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-white/10 rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors text-left"
+      >
+        <span className="text-sm font-semibold text-white">{detail.title}</span>
+        <ChevronDown
+          size={16}
+          className={`text-indigo-400 transition-transform duration-300 flex-shrink-0 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 py-4 space-y-4 border-t border-white/10">
+              <DetailBlock label="문제 상황" color="text-rose-400" items={detail.problem} />
+              <DetailBlock label="개선 방식" color="text-cyan-400" items={detail.solution} />
+              {detail.designIntent && (
+                <DetailBlock label="설계 의도" color="text-purple-400" items={detail.designIntent} />
+              )}
+              <DetailBlock label="결과" color="text-emerald-400" items={detail.result} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
