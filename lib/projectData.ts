@@ -18,6 +18,7 @@ export type ProjectDetail = {
   company: string;
   introCallout: string;
   achievements: string[];
+  images?: string[];
   tech: string[];
   details: DetailSection[];
   wrapUp: WrapUpItem[];
@@ -36,6 +37,16 @@ export const projectDetails: ProjectDetail[] = [
       "신규 기능 런칭 후 사용자 수 20~30% 증가",
       "API 호출 약 70% 절감",
       "주요 컴포넌트 렌더링 비용 40% 감소",
+    ],
+    images: [
+      "/images/rn/rn1.jpg",
+      "/images/rn/rn2.jpg",
+      "/images/rn/rn3.jpg",
+      "/images/rn/rn4.jpg",
+      "/images/rn/rn5.jpg",
+      "/images/rn/rn6.jpg",
+      "/images/rn/rn7.jpg",
+      "/images/rn/rn8.jpg",
     ],
     tech: [
       "React Native",

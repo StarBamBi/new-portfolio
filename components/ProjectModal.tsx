@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import type { ProjectDetail } from "@/lib/projectData";
 
 export default function ProjectModal({
@@ -91,6 +92,28 @@ export default function ProjectModal({
                     ))}
                   </div>
                 </section>
+
+                {/* 이미지 갤러리 */}
+                {project.images && project.images.length > 0 && (
+                  <section>
+                    <SectionLabel>스크린샷</SectionLabel>
+                    <div className="mt-3 flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                      {project.images.map((src, i) => (
+                        <div
+                          key={i}
+                          className="relative flex-shrink-0 w-36 h-72 rounded-xl overflow-hidden border border-white/10 bg-white/5"
+                        >
+                          <Image
+                            src={src}
+                            alt={`screenshot-${i + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
 
                 {/* 기술 스택 */}
                 <section>
