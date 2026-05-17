@@ -268,7 +268,7 @@ function AccordionItem({ detail }: { detail: { title: string; problem: string[];
     <div className="border border-white/10 rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors text-left"
+        className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors text-left cursor-pointer"
       >
         <span className="text-sm font-semibold text-white">{detail.title}</span>
         <ChevronDown
