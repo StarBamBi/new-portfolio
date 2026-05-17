@@ -43,7 +43,7 @@ export default function Hero() {
           custom={0}
           className="inline-block mb-4 px-4 py-1.5 rounded-full border border-indigo-500/40 bg-indigo-500/10 text-indigo-300 text-sm font-medium"
         >
-          안녕하세요, 저는
+          기술로 경험을 만드는
         </motion.div>
 
         <motion.h1
