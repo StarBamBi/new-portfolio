@@ -114,7 +114,7 @@ export default function ProjectModal({
                           <button
                             key={i}
                             onClick={() => setLightboxIndex(i)}
-                            className="relative flex-shrink-0 w-36 h-72 rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-indigo-500/50 hover:scale-[1.02] transition-all duration-200"
+                            className="relative flex-shrink-0 w-36 h-72 rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-indigo-500/50 hover:scale-[1.02] transition-all duration-200 cursor-pointer"
                           >
                             <Image
                               src={src}
