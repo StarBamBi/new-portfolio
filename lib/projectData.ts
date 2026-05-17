@@ -172,6 +172,16 @@ export const projectDetails: ProjectDetail[] = [
       "React Query + Zustand로 상태 관리 단순화 및 렌더링 성능 개선",
       "공통 컴포넌트·Hook·API 레이어 표준화로 유지보수성 향상",
     ],
+    images: [
+      "/images/backOffice/back1.jpg",
+      "/images/backOffice/back1.png",
+      "/images/backOffice/back2.jpg",
+      "/images/backOffice/back3.jpg",
+      "/images/backOffice/back4.jpg",
+      "/images/backOffice/back5.jpg",
+      "/images/backOffice/back6.jpg",
+      "/images/backOffice/back7.jpg",
+    ],
     tech: [
       "Next.js",
       "TypeScript",
@@ -261,6 +271,14 @@ export const projectDetails: ProjectDetail[] = [
       "Lighthouse 기준 LCP 46% 개선 (7.25s → 3.9s)",
       "Lighthouse SEO 점수 82 → 91 (9점 상승)",
       "이미지 로딩 속도 60% 이상 개선",
+    ],
+    images: [
+      "/images/web/web1.jpg",
+      "/images/web/web2.jpg",
+      "/images/web/web3.jpg",
+      "/images/web/web4.jpg",
+      "/images/web/web5.jpg",
+      "/images/web/web6.jpg",
     ],
     tech: [
       "Next.js",
