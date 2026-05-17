@@ -80,7 +80,7 @@ export default function Hero() {
           사용자에게 더 나은 경험을 제공하기 위해 기술과 구조를 함께
           <br />
           고민하는 3년차 프론트엔드 개발자입니다.
-          <br className="hidden md:block" />
+          <br /><br />
           TypeScript 기반 Next.js · React Native 환경에서
           <br />
           성능 최적화와 구조 개선을 리드해왔습니다.
