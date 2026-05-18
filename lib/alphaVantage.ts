@@ -33,24 +33,36 @@ export type SearchResult = {
 
 export async function getGlobalQuote(symbol: string): Promise<GlobalQuote | null> {
   const res = await fetch(
-    `${BASE_URL}?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`,
-    { next: { revalidate: 60 } }
+    `${BASE_URL}?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${API_KEY}`,
+    { next: { revalidate: 300 } }
   );
   const data = await res.json();
-  const q = data["Global Quote"];
-  if (!q || !q["05. price"]) return null;
+  if (data["Note"] || data["Information"]) return null;
+  const series = data["Time Series (Daily)"];
+  if (!series) return null;
+
+  const dates = Object.keys(series).sort().reverse();
+  if (dates.length < 2) return null;
+
+  const today = series[dates[0]] as Record<string, string>;
+  const prev = series[dates[1]] as Record<string, string>;
+
+  const price = parseFloat(today["4. close"]);
+  const previousClose = parseFloat(prev["4. close"]);
+  const change = price - previousClose;
+  const changePercent = (change / previousClose) * 100;
 
   return {
-    symbol: q["01. symbol"],
-    price: parseFloat(q["05. price"]),
-    change: parseFloat(q["09. change"]),
-    changePercent: parseFloat(q["10. change percent"].replace("%", "")),
-    volume: parseInt(q["06. volume"]),
-    latestTradingDay: q["07. latest trading day"],
-    previousClose: parseFloat(q["08. previous close"]),
-    open: parseFloat(q["02. open"]),
-    high: parseFloat(q["03. high"]),
-    low: parseFloat(q["04. low"]),
+    symbol,
+    price,
+    change,
+    changePercent,
+    volume: parseInt(today["5. volume"]),
+    latestTradingDay: dates[0],
+    previousClose,
+    open: parseFloat(today["1. open"]),
+    high: parseFloat(today["2. high"]),
+    low: parseFloat(today["3. low"]),
   };
 }
 
@@ -60,6 +72,7 @@ export async function getDailyPrices(symbol: string): Promise<DailyPrice[]> {
     { next: { revalidate: 3600 } }
   );
   const data = await res.json();
+  if (data["Note"] || data["Information"]) return [];
   const series = data["Time Series (Daily)"];
   if (!series) return [];
 

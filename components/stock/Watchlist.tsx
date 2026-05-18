@@ -24,12 +24,16 @@ export default function Watchlist({
   }, []);
 
   useEffect(() => {
-    watchlist.forEach(async (sym) => {
-      if (quotes[sym]) return;
-      const res = await fetch(`/api/stock?fn=quote&symbol=${sym}`);
-      const data = await res.json();
-      if (data) setQuotes((prev) => ({ ...prev, [sym]: data }));
-    });
+    const fetchSequentially = async () => {
+      for (const sym of watchlist) {
+        if (quotes[sym]) continue;
+        const res = await fetch(`/api/stock?fn=quote&symbol=${sym}`);
+        const data = await res.json();
+        if (data) setQuotes((prev) => ({ ...prev, [sym]: data }));
+        await new Promise((r) => setTimeout(r, 300));
+      }
+    };
+    fetchSequentially();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchlist]);
 
